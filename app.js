@@ -21,6 +21,9 @@ connection.connect();
 
 // React components
 var react = require('react');
+var components = require('./components/components.jsx');
+
+HelloMessage = React.createFactory(components.HelloMessage);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -55,6 +58,10 @@ app.get('/db', function (req, res) {
         res.send(rows);
     });
 
+});
+
+app.get('/react', function(req, res) {
+   res.render
 });
 
 // Demonstrates res.sendFile to send a static file

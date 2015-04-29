@@ -9,6 +9,8 @@
     var $btn = $('button');
 
     $btn.on('click', function () {
+        $list.html('');
+
         promise.then(function (data) {
 
             console.log(data);

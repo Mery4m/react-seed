@@ -1,7 +1,7 @@
 var Module = React.createClass({
 	render: function () {
 		return (
-			<div>react</div>
+			<div>react component</div>
 		)
 	}
 });
