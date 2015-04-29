@@ -7,6 +7,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Database Connectors
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'password',
+    database : 'nodejs'
+});
+connection.connect();
+
+
 // React components
 var react = require('react');
 
@@ -27,17 +39,48 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', routes);
 app.use('/users', users);
 
+// *** Demonstrates a simple get endpoint which queries local sample DB
+app.get('/db', function (req, res) {
 
+    var query = connection.query('SELECT * FROM t_user',function(err,rows){
+        if(err){
+            console.log(err);
+            return next("Mysql error, check your query");
+        }
 
+        res.send(rows);
+    });
 
-app.get('/home', function (req, res) {
-    res.sendFile('/home.html');
 });
 
+// Demonstrates res.sendFile to send a static file
+app.get('/get-home', function (req, res) {
 
+    var options = {
+        root: __dirname + '/public/',
+        dotfiles: 'deny',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    };
+
+    var fileName = 'home.html';
+
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            console.log(err);
+            res.status(err.status).end();
+        }
+        else {
+            console.log('Sent:', fileName);
+        }
+    });
+});
 
 
 
