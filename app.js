@@ -1,4 +1,3 @@
-require('node-jsx').install();
 
 var express = require('express');
 var path = require('path');
@@ -6,6 +5,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var browserify = require('browserify');
+
+
+require('node-jsx').install();
+
 
 // Database Connectors
 var mysql = require('mysql');
@@ -19,11 +23,12 @@ var connection = mysql.createConnection({
 connection.connect();
 
 
+var React = require('react');
 // React components
-var react = require('react');
-var components = require('./components/components.jsx');
+var DOM = React.DOM, body = DOM.body, div = DOM.div, script = DOM.script;
+//var components = require('./public/javascripts/components.jsx');
 
-HelloMessage = React.createFactory(components.HelloMessage);
+var App = React.createFactory(require('./public/javascripts/components'));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -41,6 +46,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 
 app.use('/', routes);
@@ -61,7 +67,97 @@ app.get('/db', function (req, res) {
 });
 
 app.get('/react', function(req, res) {
-   res.render
+
+    var props = [];
+
+
+
+    var html = React.renderToStaticMarkup(body(null,
+
+        // The actual server-side rendering of our component occurs here, and we
+        // pass our data in as `props`. This div is the same one that the client
+        // will "render" into on the browser from browser.js
+        div({id: 'content', dangerouslySetInnerHTML: {__html:
+            React.renderToString(App(props))
+        }}),
+
+        script({src: '//fb.me/react-0.13.2.min.js'}),
+        //script({src: 'https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js'}),
+        //script({src: 'components.js'}),
+        script({src: 'javascripts/bundle.js'})
+
+
+        // The props should match on the client and server, so we stringify them
+        // on the page to be available for access by the code run in browser.js
+        // You could use any var name here as long as it's unique
+        //script({dangerouslySetInnerHTML: {__html:
+        //'var APP_PROPS = ' + safeStringify(props) + ';'
+        //}}),
+
+        // We'll load React from a CDN - you don't have to do this,
+        // you can bundle it up or serve it locally if you like
+        //script({src: '//fb.me/react-0.13.2.min.js'})
+
+        // Then the browser will fetch and run the browserified bundle consisting
+        // of browser.js and all its dependencies.
+        // We serve this from the endpoint a few lines down.
+
+        //script({src: '/bundle.js'})
+    ));
+
+    // Return the page to the browser
+
+    res.send('<!DOCTYPE html>' + html);
+
+
+    //res.setHeader('Content-Type', 'text/html')
+    //
+    //// `props` represents the data to be passed in to the React component for
+    //// rendering - just as you would pass data, or expose variables in
+    //// templates such as Jade or Handlebars.  We just use some dummy data
+    //// here (with some potentially dangerous values for testing), but you could
+    //// imagine this would be objects typically fetched async from a DB,
+    //// filesystem or API, depending on the logged-in user, etc.
+    //var props = {
+    //    items: [
+    //        'Item 0',
+    //        'Item 1',
+    //        'Item </script>',
+    //        'Item <!--inject!-->',
+    //    ]
+    //}
+    //
+    //// Here we're using React to render the outer body, so we just use the
+    //// simpler renderToStaticMarkup function, but you could use any templating
+    //// language (or just a string) for the outer page template
+    //var html = React.renderToStaticMarkup(body(null,
+    //
+    //    // The actual server-side rendering of our component occurs here, and we
+    //    // pass our data in as `props`. This div is the same one that the client
+    //    // will "render" into on the browser from browser.js
+    //    div({id: 'content', dangerouslySetInnerHTML: {__html:
+    //        React.renderToString(App(props))
+    //    }}),
+    //
+    //    // The props should match on the client and server, so we stringify them
+    //    // on the page to be available for access by the code run in browser.js
+    //    // You could use any var name here as long as it's unique
+    //    //script({dangerouslySetInnerHTML: {__html:
+    //    //'var APP_PROPS = ' + safeStringify(props) + ';'
+    //    //}}),
+    //
+    //    // We'll load React from a CDN - you don't have to do this,
+    //    // you can bundle it up or serve it locally if you like
+    //    //script({src: '//fb.me/react-0.13.2.min.js'}),
+    //
+    //    // Then the browser will fetch and run the browserified bundle consisting
+    //    // of browser.js and all its dependencies.
+    //    // We serve this from the endpoint a few lines down.
+    //    //script({src: '/bundle.js'})
+    ////))
+    //
+    //// Return the page to the browser
+    //res.end(html)
 });
 
 // Demonstrates res.sendFile to send a static file
