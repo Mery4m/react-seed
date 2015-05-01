@@ -8,7 +8,7 @@ var props = [];
 
 React.render(App(props), document.getElementById('content'));
 
-},{"./jsx/components":158,"react":157}],2:[function(require,module,exports){
+},{"./jsx/components":159,"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -19747,9 +19747,25 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":30}],158:[function(require,module,exports){
+var React = require('react');
+
+var Header = React.createClass({displayName: "Header",
+    render: function () {
+        return (
+            React.createElement("header", null, 
+                "Header"
+            )
+        )
+    }
+});
+
+module.exports = Header;
+
+},{"react":157}],159:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
+    Header = require('./Header'),
     DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li, p = DOM.p;
 
 // This is just a simple example of a component that can be rendered on both
@@ -19783,13 +19799,12 @@ module.exports = React.createClass({displayName: "exports",
     render: function() {
 
         return (
-            React.createElement("div", {className: "wrapper", onClick: this.handleClick}, 
-                React.createElement("p", null, 
-                    "jsx compiled"
-                )
+            React.createElement("div", {className: "wrapper"}, 
+                React.createElement(Header, null), 
+                React.createElement("button", {onClick: this.handleClick}, "Test Handler")
             )
         );
     }
 });
 
-},{"react":157}]},{},[1]);
+},{"./Header":158,"react":157}]},{},[1]);

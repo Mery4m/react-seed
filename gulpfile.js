@@ -12,7 +12,10 @@ var jsxDir = './public/javascripts/browser.js';
 var bundleDestDir = './public/javascripts';
 
 gulp.task('default',
-    ['start'],
+    [
+        'start',
+        'watch'
+    ],
     function () {
     return gutil.log('Gulp is running');
 });

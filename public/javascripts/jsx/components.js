@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react'),
+    Header = require('./Header'),
     DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li, p = DOM.p;
 
 // This is just a simple example of a component that can be rendered on both
@@ -34,10 +35,9 @@ module.exports = React.createClass({displayName: "exports",
     render: function() {
 
         return (
-            <div className='wrapper' onClick={this.handleClick}>
-                <p>
-                    jsx compiled
-                </p>
+            <div className='wrapper'>
+                <Header />
+                <button onClick={this.handleClick}>Test Handler</button>
             </div>
         );
     }
