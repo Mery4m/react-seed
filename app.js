@@ -46,7 +46,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'build')));
 
 
 app.use('/', routes);
@@ -81,7 +80,7 @@ app.get('/react', function(req, res) {
             React.renderToString(App(props))
         }}),
 
-        script({src: '//fb.me/react-0.13.2.min.js'}),
+        //script({src: '//fb.me/react-0.13.2.min.js'}),
         script({src: 'javascripts/bundle.js'})
 
         // The props should match on the client and server, so we stringify them

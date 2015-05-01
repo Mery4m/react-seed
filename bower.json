@@ -1,0 +1,19 @@
+{
+  "name": "untitled3",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chrisjordanme/learning-express",
+  "authors": [
+    "Chris Jordan <cljordan1@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}

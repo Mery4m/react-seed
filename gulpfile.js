@@ -6,6 +6,9 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     reactify = require('reactify'),
     rename = require('gulp-rename'),
+    buffer = require('vinyl-buffer'),
+    uglify = require('gulp-uglify'),
+    browserSync = require('browser-sync'),
     source = require('vinyl-source-stream');
 
 var jsxDir = './public/javascripts/browser.js';
@@ -47,6 +50,8 @@ gulp.task('bundle-jsx', function () {
     return b.bundle()
         .pipe(source('public/javascripts/browser.js'))
         .pipe(rename('bundle.js'))
+        .pipe(buffer())
+        .pipe(uglify())
         .pipe(gulp.dest('./public/javascripts'))
 });
 
@@ -55,6 +60,15 @@ gulp.task('start', function () {
     return nodemon({
         script: './bin/www'
     })
+});
+
+gulp.task('browser-sync', ['start'], function() {
+    browserSync.init(null, {
+        proxy: {
+            host: "http://localhost",
+            port: 5000
+        }
+    });
 });
 
 gulp.task('watch', function () {
