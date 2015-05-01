@@ -31,19 +31,12 @@ module.exports = React.createClass({displayName: "exports",
         //})
     },
 
-    // For ease of illustration, we just use the React JS methods directly
-    // (no JSX compilation needed)
-    // Note that we allow the button to be disabled initially, and then enable it
-    // when everything has loaded
     render: function() {
 
         return (
             <div className='wrapper' onClick={this.handleClick}>
-                <div className="innner">
-                    test
-                </div>
                 <p>
-                    works
+                    jsx compiled
                 </p>
             </div>
         );
