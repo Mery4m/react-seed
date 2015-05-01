@@ -40,6 +40,10 @@ module.exports = React.createClass({displayName: "exports",
         return (
             <div className='wrapper' onClick={this.handleClick}>
                 Hello wurld
+                <p>
+                    another testss
+                </p>
+
             </div>
         );
     }
