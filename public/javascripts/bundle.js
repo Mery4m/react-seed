@@ -19799,7 +19799,7 @@ module.exports = React.createClass({displayName: "exports",
     render: function() {
 
         return (
-            React.createElement("div", {className: "wrapper"}, 
+            React.createElement("div", {className: "wrapper", onClick: this.handleClick}, 
                 React.createElement(Header, null), 
                 React.createElement("button", {onClick: this.handleClick}, "Test Handler")
             )
