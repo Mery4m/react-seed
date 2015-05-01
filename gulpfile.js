@@ -32,9 +32,9 @@ gulp.task('build-css', function () {
 });
 
 gulp.task('start', function () {
+    // todo-cj : fix the exectution script location. Webstorm hijacked this...
     return nodemon({
-        script: 'app.js',
-        ext: 'js'
+        script: './bin/www'
     })
     .on('start', function () {
 
