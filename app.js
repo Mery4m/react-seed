@@ -28,7 +28,7 @@ var React = require('react');
 var DOM = React.DOM, body = DOM.body, div = DOM.div, script = DOM.script;
 //var components = require('./public/javascripts/components.jsx');
 
-var App = React.createFactory(require('./public/javascripts/components'));
+var App = React.createFactory(require('./public/javascripts/jsx/components'));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -82,10 +82,7 @@ app.get('/react', function(req, res) {
         }}),
 
         script({src: '//fb.me/react-0.13.2.min.js'}),
-        //script({src: 'https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js'}),
-        //script({src: 'components.js'}),
         script({src: 'javascripts/bundle.js'})
-
 
         // The props should match on the client and server, so we stringify them
         // on the page to be available for access by the code run in browser.js

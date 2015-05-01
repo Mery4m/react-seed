@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var App = React.createFactory(require('./components'));
+var App = React.createFactory(require('./client/components'));
 
 var props = [];
 

@@ -39,11 +39,12 @@ module.exports = React.createClass({displayName: "exports",
 
         return (
             <div className='wrapper' onClick={this.handleClick}>
-                Hello wurld
+                <div className="innner">
+                    test
+                </div>
                 <p>
-                    another testss
+                    works
                 </p>
-
             </div>
         );
     }

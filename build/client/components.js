@@ -41,7 +41,7 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement("div", {className: "wrapper", onClick: this.handleClick}, 
                 "Hello wurld", 
                 React.createElement("p", null, 
-                    "another testss"
+                    "p tag"
                 )
 
             )

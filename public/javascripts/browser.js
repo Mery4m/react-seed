@@ -1,7 +1,7 @@
 
 var React = require('react');
 
-var App = React.createFactory(require('./components'));
+var App = React.createFactory(require('./jsx/components'));
 
 var props = [];
 
